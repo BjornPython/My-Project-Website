@@ -22,7 +22,7 @@ EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 Base = declarative_base()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY")
+app.config['SECRET_KEY'] = os.getenv("FLASK_SECRET_KEY")
 app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 ckeditor = CKEditor(app)
 
