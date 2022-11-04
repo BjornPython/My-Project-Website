@@ -1,0 +1,77 @@
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block content %}
+{% include "header.html" %}
+
+
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/contact-bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Register</h1>
+            <span class="subheading">Start Contributing to the Blog!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        {% with messages = get_flashed_messages() %}
+
+        {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+
+        {% endwith %}
+        <div class="container">
+		<h1>Register</h1>
+
+          <form name="sentMessage" id="contactForm" method="post">
+          {{ form.csrf_token }}
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>{{form.name.label}}</label>
+                  {{form.name(class_="form-control", placeholder="Name", size=30)}}
+                <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>{{form.email.label}}</label>
+				  {{form.email(class_="form-control", placeholder="Your Email", size=30)}}
+                <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>{{form.password.label}}</label>
+				  {{form.password(class_="form-control", placeholder="Your Password", size=30)}}
+                <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br />
+          <div id="success">
+          {{form.submit(class_="btn btn-primary", style="margin-top: 2%;")}}
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+{% include "footer.html" %}
+
+{% endblock %}
