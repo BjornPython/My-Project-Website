@@ -15,9 +15,9 @@ import ssl
 import os
 
 # Variables
-MY_EMAIL = os.environ.get("MY_EMAIL")
-MY_PASS = os.environ.get("MY_PASS")
-EMAIL_RECEIVER = os.environ.get("EMAIL_RECEIVER")
+MY_EMAIL = os.getenv("MY_EMAIL")
+MY_PASS = os.getenv("MY_PASS")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 Base = declarative_base()
 
