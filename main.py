@@ -17,12 +17,12 @@ import os
 # Variables
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASS = os.environ.get("MY_PASS")
-EMAIL_RECEIVER = "nathanflores887@gmail.com"
+EMAIL_RECEIVER = os.environ.get("EMAIL_RECEIVER")
 
 Base = declarative_base()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY")
 app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 ckeditor = CKEditor(app)
 
@@ -99,7 +99,6 @@ def send_email(name, email, phone_num, message):
                             EMAIL_RECEIVER,
                             em.as_string()
                             )
-
 
 
 def get_all_data():
@@ -349,12 +348,14 @@ def login():
     if login_form.validate_on_submit():
         email = login_form.email.data
         user = db.session.query(User).filter_by(email=email).first()
+
         password = login_form.password.data
-        if check_password_hash(user.password, password):
-            login_user(user)
-            return redirect("/", code=301)
-        else:
-            flash("Wrong Email or Password!")
+        if user is not None:
+            if check_password_hash(user.password, password):
+                login_user(user)
+                return redirect("/", code=301)
+        flash("Wrong Email or Password!")
+        return render_template("login.html", form=login_form)
     return render_template("login.html", form=login_form)
 
 
